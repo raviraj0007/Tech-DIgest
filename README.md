@@ -2,13 +2,6 @@
 
 A responsive, modern tech news website built with React, featuring a clean design with blue/gray palette, smooth animations, and integration with the Dev.to API for real-time tech news.
 
-## 👨‍💻 Developer
-
-**Developed with ❤️ by [Ravi Raj](https://github.com/raviraj0007)**
-
-- **GitHub**: [@raviraj0007](https://github.com/raviraj0007)
-- **Email**: raviraj04066@gmail.com
-
 ## 🚀 Features
 
 ### Design & Layout
