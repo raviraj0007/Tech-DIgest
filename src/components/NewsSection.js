@@ -136,7 +136,7 @@ const NewsSectionComponent = () => {
       description: "Exploring the latest developments in AI technology and their impact on various industries.",
       cover_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-14T10:30:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/the-future-of-artificial-intelligence-in-2024/",
       reading_time_minutes: 8
     },
     {
@@ -145,7 +145,7 @@ const NewsSectionComponent = () => {
       description: "From React 18 to Next.js 14, discover the technologies shaping modern web development.",
       cover_image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-13T15:45:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/web-development-trends-2024/",
       reading_time_minutes: 12
     },
     {
@@ -154,7 +154,7 @@ const NewsSectionComponent = () => {
       description: "Essential cybersecurity practices for developers and businesses in the digital age.",
       cover_image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-13T09:15:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/cybersecurity-best-practices/",
       reading_time_minutes: 6
     },
     {
@@ -163,7 +163,7 @@ const NewsSectionComponent = () => {
       description: "How cloud computing is revolutionizing business operations and what's next.",
       cover_image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-12T14:20:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/cloud-computing-future/",
       reading_time_minutes: 7
     },
     {
@@ -172,7 +172,7 @@ const NewsSectionComponent = () => {
       description: "A comprehensive comparison of the two leading cross-platform mobile development frameworks.",
       cover_image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-11T11:45:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/react-native-vs-flutter/",
       reading_time_minutes: 10
     },
     {
@@ -181,7 +181,7 @@ const NewsSectionComponent = () => {
       description: "Discover the latest JavaScript features and how they're improving developer experience.",
       cover_image: "https://images.unsplash.com/photo-1555066932-e78dd8fb77bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-10T16:30:00Z",
-      url: "#",
+      url: "https://www.freecodecamp.org/news/javascript-es2024-features/",
       reading_time_minutes: 9
     }
   ];

@@ -83,9 +83,11 @@ const ReadMoreLink = styled.a`
   align-items: center;
   gap: 0.5rem;
   transition: gap 0.3s ease;
+  cursor: pointer;
   
   &:hover {
     gap: 0.75rem;
+    color: #1d4ed8;
   }
 `;
 
@@ -168,6 +170,12 @@ const NewsCard = ({ article }) => {
           href={article.url} 
           target="_blank" 
           rel="noopener noreferrer"
+          onClick={(e) => {
+            // Ensure the link opens in a new tab
+            if (article.url && article.url !== '#') {
+              window.open(article.url, '_blank', 'noopener,noreferrer');
+            }
+          }}
         >
           Read More <FaArrowRight />
         </ReadMoreLink>
