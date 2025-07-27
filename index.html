@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech-Digest - Latest Tech News & Insights</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Tech-Digest</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">Stay Ahead with the Latest Tech Insights</h1>
+                <p class="hero-subtitle">Discover cutting-edge technology trends, startup innovations, and industry breakthroughs delivered to your inbox daily.</p>
+                <div class="hero-buttons">
+                    <a href="#news" class="btn btn-primary">Explore News</a>
+                    <a href="#newsletter" class="btn btn-secondary">Subscribe</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-graphic">
+                    <i class="fas fa-microchip"></i>
+                    <i class="fas fa-rocket"></i>
+                    <i class="fas fa-brain"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article Section -->
+    <section class="featured-article">
+        <div class="container">
+            <div class="featured-content">
+                <div class="featured-image">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="AI Technology">
+                </div>
+                <div class="featured-text">
+                    <span class="featured-badge">Featured</span>
+                    <h2>The Future of AI: How Machine Learning is Transforming Industries</h2>
+                    <p>Artificial Intelligence continues to revolutionize how businesses operate, from automated customer service to predictive analytics. Discover the latest breakthroughs and what they mean for the future of work.</p>
+                    <div class="featured-meta">
+                        <span class="date"><i class="far fa-calendar"></i> December 15, 2024</span>
+                        <span class="read-time"><i class="far fa-clock"></i> 5 min read</span>
+                    </div>
+                    <a href="#" class="btn btn-primary">Read Full Article</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Grid Section -->
+    <section id="news" class="news-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest Tech News</h2>
+                <p>Stay updated with the most recent developments in technology</p>
+            </div>
+            <div class="news-grid" id="newsGrid">
+                <!-- News items will be populated by JavaScript -->
+            </div>
+            <div class="load-more">
+                <button id="loadMoreBtn" class="btn btn-secondary">Load More Articles</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA Section -->
+    <section id="newsletter" class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Never Miss a Tech Update</h2>
+                <p>Get the latest tech news, insights, and trends delivered directly to your inbox. Join thousands of tech enthusiasts who stay ahead of the curve.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </div>
+                </form>
+                <p class="newsletter-note">No spam, unsubscribe at any time. We respect your privacy.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tech-Digest</h3>
+                    <p>Your trusted source for the latest technology news, insights, and trends. Stay informed, stay ahead.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#">Artificial Intelligence</a></li>
+                        <li><a href="#">Web Development</a></li>
+                        <li><a href="#">Mobile Apps</a></li>
+                        <li><a href="#">Cybersecurity</a></li>
+                        <li><a href="#">Cloud Computing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to our newsletter for the latest updates.</p>
+                    <form class="footer-newsletter">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit" title="Subscribe to newsletter"><i class="fas fa-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Tech-Digest. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

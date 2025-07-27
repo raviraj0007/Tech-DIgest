@@ -1,0 +1,9 @@
+@echo off
+echo Starting Tech-Digest React App...
+echo.
+echo Installing dependencies if needed...
+npm install
+echo.
+echo Starting development server...
+npm start
+pause 
