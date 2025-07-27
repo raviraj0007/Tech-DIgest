@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaCalendar, FaClock, FaArrowRight } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaArrowRight, FaImage } from 'react-icons/fa';
 
 const Card = styled(motion.article)`
   background: white;
@@ -22,6 +22,7 @@ const CardImage = styled.div`
   width: 100%;
   height: 200px;
   overflow: hidden;
+  position: relative;
   
   img {
     width: 100%;
@@ -33,6 +34,18 @@ const CardImage = styled.div`
   ${Card}:hover & img {
     transform: scale(1.05);
   }
+`;
+
+const PlaceholderImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  opacity: 0.8;
 `;
 
 const CardContent = styled.div`
@@ -89,6 +102,8 @@ const ReadMoreLink = styled.a`
 `;
 
 const NewsCard = ({ article }) => {
+  const [imageError, setImageError] = useState(false);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -98,7 +113,23 @@ const NewsCard = ({ article }) => {
     });
   };
 
-  const imageUrl = article.cover_image || 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+  // Multiple fallback images for variety
+  const fallbackImages = [
+    'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1555066932-e78dd8fb77bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+  ];
+
+  // Get fallback image based on article ID for variety
+  const getFallbackImage = () => {
+    const index = (article.id || 0) % fallbackImages.length;
+    return fallbackImages[index];
+  };
+
+  const imageUrl = article.cover_image || getFallbackImage();
 
   return (
     <Card
@@ -106,7 +137,28 @@ const NewsCard = ({ article }) => {
       transition={{ duration: 0.3 }}
     >
       <CardImage>
-        <img src={imageUrl} alt={article.title} loading="lazy" />
+        {!imageError ? (
+          <img 
+            src={imageUrl} 
+            alt={article.title} 
+            loading="lazy"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: '3rem',
+            opacity: 0.8
+          }}>
+            📱
+          </div>
+        )}
       </CardImage>
       
       <CardContent>

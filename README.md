@@ -20,11 +20,10 @@ A responsive, modern tech news website built with React, featuring a clean desig
 ### React Components
 1. **Navbar**: Responsive navigation with mobile hamburger menu
 2. **Hero**: Animated hero section with CTA buttons
-3. **FeaturedArticle**: Prominent display of main story
-4. **NewsSection**: Dynamic news grid with API integration
-5. **NewsletterCTA**: Email subscription with validation
-6. **Footer**: Comprehensive site information and social links
-7. **DeveloperCredits**: Developer attribution and contact information
+3. **NewsSection**: Dynamic news grid with API integration
+4. **NewsletterCTA**: Email subscription with validation
+5. **Footer**: Comprehensive site information and social links
+6. **DeveloperCredits**: Developer attribution and contact information
 
 ### Interactive Features
 - **Mobile Navigation**: Hamburger menu for mobile devices
@@ -61,12 +60,14 @@ A responsive, modern tech news website built with React, featuring a clean desig
 ```
 Tech-Digest-React/
 ├── public/
-│   └── index.html          # Main HTML file
+│   ├── index.html          # Main HTML file
+│   ├── _redirects          # Netlify redirects for SPA
+│   ├── manifest.json       # PWA manifest
+│   └── robots.txt          # SEO robots file
 ├── src/
 │   ├── components/
 │   │   ├── Navbar.js       # Navigation component
 │   │   ├── Hero.js         # Hero section component
-│   │   ├── FeaturedArticle.js # Featured article component
 │   │   ├── NewsSection.js  # News grid component
 │   │   ├── NewsCard.js     # Individual news card
 │   │   ├── NewsletterCTA.js # Newsletter component
@@ -75,14 +76,18 @@ Tech-Digest-React/
 │   ├── App.js              # Main app component
 │   ├── index.js            # React entry point
 │   └── index.css           # Global styles
+├── build/                  # Production build (generated)
 ├── package.json            # Dependencies and scripts
+├── netlify.toml           # Netlify configuration
+├── deploy.md              # Deployment guide
+├── deploy.bat             # Windows deployment script
 └── README.md              # Project documentation
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (version 14 or higher)
+- Node.js (version 16 or higher)
 - npm or yarn package manager
 
 ### Installation
@@ -102,8 +107,41 @@ Tech-Digest-React/
 
 - `npm start` - Start development server
 - `npm build` - Build for production
+- `npm run build:prod` - Build for production (no CI checks)
 - `npm test` - Run tests
 - `npm eject` - Eject from Create React App
+
+## 🌐 Deployment
+
+### Quick Deploy to Netlify
+
+#### Option 1: Drag & Drop (Easiest)
+1. Run the deployment script: `deploy.bat` (Windows) or manually:
+   ```bash
+   npm install
+   npm run build
+   ```
+2. Go to [Netlify](https://netlify.com) and sign up/login
+3. Drag the `build` folder to the Netlify dashboard
+4. Your site will be live instantly!
+
+#### Option 2: Connect GitHub Repository
+1. Push your code to GitHub
+2. Go to [Netlify](https://netlify.com) and click "New site from Git"
+3. Connect your GitHub account
+4. Select your repository
+5. Set build command: `npm run build`
+6. Set publish directory: `build`
+7. Click "Deploy site"
+
+### Deployment Files Included
+- `netlify.toml` - Netlify configuration
+- `public/_redirects` - SPA routing support
+- `public/manifest.json` - PWA support
+- `public/robots.txt` - SEO optimization
+- `deploy.md` - Detailed deployment guide
+
+For detailed deployment instructions, see [deploy.md](deploy.md)
 
 ## 🎨 Design System
 

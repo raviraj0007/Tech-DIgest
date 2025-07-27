@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import FeaturedArticle from './components/FeaturedArticle';
 import NewsSection from './components/NewsSection';
 import NewsletterCTA from './components/NewsletterCTA';
 import Footer from './components/Footer';
@@ -28,7 +27,6 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <FeaturedArticle />
               <NewsSection />
               <NewsletterCTA />
             </>
