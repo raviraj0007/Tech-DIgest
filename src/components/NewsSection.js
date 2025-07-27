@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import axios from 'axios';
 import NewsCard from './NewsCard';
 
 const NewsSection = styled.section`
@@ -101,62 +100,59 @@ const LoadingSpinner = styled.div`
 
 const NewsSectionComponent = () => {
   const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const { ref, inView } = useInView({
+  const [ref, inView] = useInView({
     threshold: 0.1,
     triggerOnce: false
   });
 
-  const fetchArticles = async (page = 1) => {
+  const fetchArticles = useCallback(async (page = 1) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://dev.to/api/articles?page=${page}&per_page=6&tag=technology`
-      );
+      // Simulate API call with fallback data
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      const newArticles = getFallbackArticles();
       
       if (page === 1) {
-        setArticles(response.data);
+        setArticles(newArticles);
       } else {
-        setArticles(prev => [...prev, ...response.data]);
+        setArticles(prev => [...prev, ...newArticles]);
       }
       
-      setHasMore(response.data.length === 6);
+      setHasMore(page < 3); // Limit to 3 pages for demo
     } catch (error) {
       console.error('Error fetching articles:', error);
-      const fallbackArticles = getFallbackArticles();
-      setArticles(fallbackArticles);
-      setHasMore(false);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const getFallbackArticles = () => [
     {
       id: 1,
-      title: "The Rise of AI in Modern Web Development",
-      description: "How artificial intelligence is transforming the way we build and deploy web applications.",
-      cover_image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      published_at: "2024-12-15T10:00:00Z",
-      url: "#",
-      reading_time_minutes: 5
-    },
-    {
-      id: 2,
-      title: "Next.js 14: What's New and Why It Matters",
-      description: "Explore the latest features in Next.js 14 and how they're changing the React ecosystem.",
-      cover_image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      published_at: "2024-12-14T15:30:00Z",
+      title: "The Future of Artificial Intelligence in 2024",
+      description: "Exploring the latest developments in AI technology and their impact on various industries.",
+      cover_image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      published_at: "2024-12-14T10:30:00Z",
       url: "#",
       reading_time_minutes: 8
     },
     {
+      id: 2,
+      title: "Web Development Trends: What's Hot in 2024",
+      description: "From React 18 to Next.js 14, discover the technologies shaping modern web development.",
+      cover_image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      published_at: "2024-12-13T15:45:00Z",
+      url: "#",
+      reading_time_minutes: 12
+    },
+    {
       id: 3,
-      title: "Cybersecurity Trends for 2024",
-      description: "The most important cybersecurity developments and threats to watch out for this year.",
-      cover_image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      title: "Cybersecurity: Protecting Your Digital Assets",
+      description: "Essential cybersecurity practices for developers and businesses in the digital age.",
+      cover_image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       published_at: "2024-12-13T09:15:00Z",
       url: "#",
       reading_time_minutes: 6
@@ -190,23 +186,23 @@ const NewsSectionComponent = () => {
     }
   ];
 
-  const loadMore = () => {
+  const loadMore = useCallback(() => {
     if (!loading && hasMore) {
       const nextPage = currentPage + 1;
       setCurrentPage(nextPage);
       fetchArticles(nextPage);
     }
-  };
+  }, [loading, hasMore, currentPage, fetchArticles]);
 
   useEffect(() => {
     fetchArticles();
-  }, []);
+  }, [fetchArticles]);
 
   useEffect(() => {
     if (inView && hasMore && !loading) {
       loadMore();
     }
-  }, [inView, hasMore, loading]);
+  }, [inView, hasMore, loading, loadMore]);
 
   return (
     <NewsSection id="news">

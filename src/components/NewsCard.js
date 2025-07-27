@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaCalendar, FaClock, FaArrowRight, FaImage } from 'react-icons/fa';
+import { FaCalendar, FaClock, FaArrowRight } from 'react-icons/fa';
 
 const Card = styled(motion.article)`
   background: white;
@@ -34,18 +34,6 @@ const CardImage = styled.div`
   ${Card}:hover & img {
     transform: scale(1.05);
   }
-`;
-
-const PlaceholderImage = styled.div`
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 3rem;
-  opacity: 0.8;
 `;
 
 const CardContent = styled.div`
