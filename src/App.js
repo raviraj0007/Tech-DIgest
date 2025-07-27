@@ -7,6 +7,7 @@ import NewsSection from './components/NewsSection';
 import NewsletterCTA from './components/NewsletterCTA';
 import Footer from './components/Footer';
 import DeveloperCredits from './components/DeveloperCredits';
+import LatestTechNews from './components/LatestTechNews';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -27,7 +28,7 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <NewsSection />
+              <LatestTechNews />
               <NewsletterCTA />
             </>
           } />

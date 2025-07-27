@@ -280,6 +280,11 @@ document.addEventListener('DOMContentLoaded', () => {
     newsAPI.loadArticles();
 });
 
+// Refresh news every 6 hours (21600000 ms)
+setInterval(() => {
+    newsAPI.loadArticles();
+}, 21600000);
+
 // Load more articles button
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 loadMoreBtn.addEventListener('click', () => {

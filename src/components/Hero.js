@@ -60,6 +60,10 @@ const HeroButtons = styled.div`
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 const Button = styled.a`
