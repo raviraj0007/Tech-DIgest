@@ -3,11 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import NewsSection from './components/NewsSection';
 import NewsletterCTA from './components/NewsletterCTA';
 import Footer from './components/Footer';
 import DeveloperCredits from './components/DeveloperCredits';
-import LatestTechNews from './components/LatestTechNews';
+import GuardianNews from './components/GuardianNews';
+import GuardianNewsEnhanced from './components/GuardianNewsEnhanced';
 
 const AppContainer = styled.div`
   min-height: 100vh;
@@ -28,11 +28,11 @@ function App() {
           <Route path="/" element={
             <>
               <Hero />
-              <LatestTechNews />
+              <GuardianNews />
+              <GuardianNewsEnhanced />
               <NewsletterCTA />
             </>
           } />
-          <Route path="/news" element={<NewsSection />} />
           <Route path="/about" element={<div>About Page</div>} />
           <Route path="/contact" element={<div>Contact Page</div>} />
         </Routes>

@@ -1,6 +1,6 @@
 # Tech-Digest React - Modern Tech News Website
 
-A responsive, modern tech news website built with React, featuring a clean design with blue/gray palette, smooth animations, and integration with the Dev.to API for real-time tech news.
+A responsive, modern tech news website built with React, featuring a clean design with blue/gray palette, smooth animations, and integration with The Guardian API for real-time tech news.
 
 ## 🚀 Features
 
@@ -13,15 +13,18 @@ A responsive, modern tech news website built with React, featuring a clean desig
 ### React Components
 1. **Navbar**: Responsive navigation with mobile hamburger menu
 2. **Hero**: Animated hero section with CTA buttons
-3. **NewsSection**: Dynamic news grid with API integration
-4. **NewsletterCTA**: Email subscription with validation
-5. **Footer**: Comprehensive site information and social links
-6. **DeveloperCredits**: Developer attribution and contact information
+3. **GuardianNews**: Basic Guardian news feed with API integration
+4. **GuardianNewsEnhanced**: Advanced Guardian news with filters and search
+5. **NewsletterCTA**: Email subscription with validation
+6. **Footer**: Comprehensive site information and social links
+7. **DeveloperCredits**: Developer attribution and contact information
 
 ### Interactive Features
 - **Mobile Navigation**: Hamburger menu for mobile devices
 - **Smooth Scrolling**: Navigation links with smooth scroll behavior
-- **News API Integration**: Real-time tech news from Dev.to API
+- **Guardian API Integration**: Real-time tech news from The Guardian
+- **Category Filtering**: Filter news by Technology, Science, Business, World, Politics
+- **Search Functionality**: Search for specific topics
 - **Load More**: Infinite scroll pagination for articles
 - **Newsletter Forms**: Email validation and toast notifications
 - **Hover Animations**: Card hover effects and social media interactions
@@ -31,7 +34,7 @@ A responsive, modern tech news website built with React, featuring a clean desig
 - **Styled Components**: CSS-in-JS styling
 - **Framer Motion**: Smooth animations and transitions
 - **React Router**: Client-side routing
-- **Axios**: HTTP client for API calls
+- **Guardian API**: Real-time news from The Guardian
 - **React Hot Toast**: Toast notifications
 - **React Icons**: Icon library
 - **Intersection Observer**: Scroll-based animations
@@ -42,11 +45,10 @@ A responsive, modern tech news website built with React, featuring a clean desig
 - **React Router DOM**: Client-side routing
 - **Styled Components**: CSS-in-JS styling
 - **Framer Motion**: Animation library
-- **Axios**: HTTP client
+- **Guardian API**: Real-time news content
 - **React Hot Toast**: Toast notifications
 - **React Icons**: Icon library
 - **React Intersection Observer**: Scroll animations
-- **Dev.to API**: Real-time tech news content
 
 ## 📁 Project Structure
 
@@ -61,11 +63,15 @@ Tech-Digest-React/
 │   ├── components/
 │   │   ├── Navbar.js       # Navigation component
 │   │   ├── Hero.js         # Hero section component
-│   │   ├── NewsSection.js  # News grid component
-│   │   ├── NewsCard.js     # Individual news card
+│   │   ├── GuardianNews.js # Basic Guardian news component
+│   │   ├── GuardianNewsEnhanced.js # Enhanced Guardian news
 │   │   ├── NewsletterCTA.js # Newsletter component
 │   │   ├── Footer.js       # Footer component
 │   │   └── DeveloperCredits.js # Developer credits
+│   ├── services/
+│   │   └── guardianApi.js  # Guardian API service
+│   ├── utils/
+│   │   └── guardianApiTest.js # API testing utilities
 │   ├── App.js              # Main app component
 │   ├── index.js            # React entry point
 │   └── index.css           # Global styles
@@ -74,6 +80,7 @@ Tech-Digest-React/
 ├── netlify.toml           # Netlify configuration
 ├── deploy.md              # Deployment guide
 ├── deploy.bat             # Windows deployment script
+├── GUARDIAN_API_INTEGRATION.md # Guardian API documentation
 └── README.md              # Project documentation
 ```
 
@@ -158,15 +165,17 @@ For detailed deployment instructions, see [deploy.md](deploy.md)
 
 ## 🔧 API Integration
 
-The website integrates with the Dev.to API to fetch real-time tech news:
+The website integrates with The Guardian API to fetch real-time tech news:
 
 ```javascript
-// API Endpoint
-https://dev.to/api/articles?page=1&per_page=6&tag=technology
+// Guardian API Endpoint
+https://content.guardianapis.com/search?api-key=YOUR_API_KEY&q=technology&section=technology
 ```
 
 ### Features
-- **Automatic Fallback**: Local content when API is unavailable
+- **Real-time News**: Latest articles from The Guardian
+- **Category Filtering**: Technology, Science, Business, World, Politics
+- **Search Functionality**: Search for specific topics
 - **Error Handling**: Graceful degradation on API failures
 - **Loading States**: Spinner animation during data fetching
 - **Infinite Scroll**: Load more articles on scroll
@@ -245,7 +254,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- **Dev.to**: For providing the tech news API
+- **The Guardian**: For providing the news API
 - **Unsplash**: For high-quality stock images
 - **React Team**: For the amazing React framework
 - **Framer Motion**: For smooth animations

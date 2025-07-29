@@ -96,10 +96,11 @@ function showNotification(message, type) {
     }, 3000);
 }
 
-// Dev.to API Integration
-class TechNewsAPI {
+// Guardian API Integration
+class GuardianNewsAPI {
     constructor() {
-        this.baseURL = 'https://dev.to/api';
+        this.baseURL = 'https://content.guardianapis.com';
+        this.apiKey = 'f8efdffb-0c28-41a7-b147-e7c1da26e32a';
         this.currentPage = 1;
         this.articles = [];
         this.isLoading = false;
@@ -110,16 +111,31 @@ class TechNewsAPI {
             this.isLoading = true;
             this.showLoading();
             
-            const response = await fetch(`${this.baseURL}/articles?page=${page}&per_page=${perPage}&tag=technology`);
+            const url = `${this.baseURL}/search?api-key=${this.apiKey}&q=technology&section=technology&page=${page}&page-size=${perPage}&show-fields=thumbnail,headline,trailText,lastModified&order-by=newest`;
+            
+            const response = await fetch(url);
             
             if (!response.ok) {
-                throw new Error('Failed to fetch articles');
+                throw new Error('Failed to fetch articles from Guardian API');
             }
             
-            const articles = await response.json();
-            return articles;
+            const data = await response.json();
+            
+            if (data.response && data.response.results) {
+                return data.response.results.map(article => ({
+                    id: article.id,
+                    title: article.webTitle,
+                    description: article.fields?.trailText || article.webTitle,
+                    cover_image: article.fields?.thumbnail || this.getDefaultImage(),
+                    published_at: article.webPublicationDate,
+                    url: article.webUrl,
+                    reading_time_minutes: 5
+                }));
+            } else {
+                throw new Error('Invalid response format from Guardian API');
+            }
         } catch (error) {
-            console.error('Error fetching articles:', error);
+            console.error('Error fetching Guardian articles:', error);
             return this.getFallbackArticles();
         } finally {
             this.isLoading = false;
@@ -127,12 +143,18 @@ class TechNewsAPI {
         }
     }
 
+    getDefaultImage() {
+        return "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80";
+    }
+
     showLoading() {
         const newsGrid = document.getElementById('newsGrid');
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'loading';
-        loadingDiv.innerHTML = '<div class="spinner"></div>';
-        newsGrid.appendChild(loadingDiv);
+        if (newsGrid) {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading';
+            loadingDiv.innerHTML = '<div class="spinner"></div>';
+            newsGrid.appendChild(loadingDiv);
+        }
     }
 
     hideLoading() {
@@ -205,91 +227,86 @@ class TechNewsAPI {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
-            month: 'long',
+            month: 'short',
             day: 'numeric'
         });
     }
 
     createNewsCard(article) {
-        const card = document.createElement('article');
-        card.className = 'news-card';
-        
-        const imageUrl = article.cover_image || 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
-        
-        card.innerHTML = `
-            <div class="news-card-image">
-                <img src="${imageUrl}" alt="${article.title}" loading="lazy">
-            </div>
-            <div class="news-card-content">
-                <h3 class="news-card-title">${article.title}</h3>
-                <p class="news-card-summary">${article.description}</p>
-                <div class="news-card-meta">
-                    <span class="news-card-date">
-                        <i class="far fa-calendar"></i>
-                        ${this.formatDate(article.published_at)}
-                    </span>
-                    <span class="read-time">
-                        <i class="far fa-clock"></i>
-                        ${article.reading_time_minutes || 5} min read
-                    </span>
+        return `
+            <div class="news-card" data-aos="fade-up">
+                <div class="news-image">
+                    <img src="${article.cover_image}" alt="${article.title}" onerror="this.src='${this.getDefaultImage()}'">
                 </div>
-                <a href="${article.url}" class="news-card-read-more" target="_blank" rel="noopener">
-                    Read More <i class="fas fa-arrow-right"></i>
-                </a>
+                <div class="news-content">
+                    <h3>${article.title}</h3>
+                    <p>${article.description}</p>
+                    <div class="news-meta">
+                        <span class="date">${this.formatDate(article.published_at)}</span>
+                        <span class="read-time">${article.reading_time_minutes} min read</span>
+                    </div>
+                    <a href="${article.url}" target="_blank" class="read-more">Read More →</a>
+                </div>
             </div>
         `;
-        
-        return card;
     }
 
     async loadArticles() {
-        const articles = await this.fetchArticles(this.currentPage);
-        const newsGrid = document.getElementById('newsGrid');
-        
-        // Clear existing content
-        newsGrid.innerHTML = '';
-        
-        // Add articles to grid
-        articles.forEach(article => {
-            const card = this.createNewsCard(article);
-            newsGrid.appendChild(card);
-        });
-        
-        this.articles = articles;
+        try {
+            const articles = await this.fetchArticles(1, 6);
+            this.articles = articles;
+            
+            const newsGrid = document.getElementById('newsGrid');
+            if (newsGrid) {
+                newsGrid.innerHTML = articles.map(article => this.createNewsCard(article)).join('');
+                this.animateNewsCards();
+            }
+        } catch (error) {
+            console.error('Error loading articles:', error);
+        }
     }
 
     async loadMoreArticles() {
-        this.currentPage++;
-        const articles = await this.fetchArticles(this.currentPage);
-        const newsGrid = document.getElementById('newsGrid');
+        if (this.isLoading) return;
         
-        articles.forEach(article => {
-            const card = this.createNewsCard(article);
-            newsGrid.appendChild(card);
-        });
-        
-        this.articles = [...this.articles, ...articles];
+        try {
+            this.currentPage++;
+            const newArticles = await this.fetchArticles(this.currentPage, 3);
+            
+            if (newArticles.length > 0) {
+                this.articles = [...this.articles, ...newArticles];
+                
+                const newsGrid = document.getElementById('newsGrid');
+                if (newsGrid) {
+                    const newCards = newArticles.map(article => this.createNewsCard(article)).join('');
+                    newsGrid.insertAdjacentHTML('beforeend', newCards);
+                    this.animateNewsCards();
+                }
+            }
+        } catch (error) {
+            console.error('Error loading more articles:', error);
+        }
     }
 }
 
-// Initialize the news API and load articles
-const newsAPI = new TechNewsAPI();
+// Initialize the Guardian news API and load articles
+const guardianNewsAPI = new GuardianNewsAPI();
 
 // Load articles when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    newsAPI.loadArticles();
+    guardianNewsAPI.loadArticles();
 });
 
 // Refresh news every 6 hours (21600000 ms)
 setInterval(() => {
-    newsAPI.loadArticles();
+    guardianNewsAPI.loadArticles();
 }, 21600000);
 
 // Load more articles button
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 loadMoreBtn.addEventListener('click', () => {
-    if (!newsAPI.isLoading) {
-        newsAPI.loadMoreArticles();
+    if (!guardianNewsAPI.isLoading) {
+        guardianNewsAPI.loadMoreArticles();
     }
 });
 
@@ -371,8 +388,8 @@ function animateNewsCards() {
 }
 
 // Call animation when articles are loaded
-const originalLoadArticles = newsAPI.loadArticles;
-newsAPI.loadArticles = async function() {
+const originalLoadArticles = guardianNewsAPI.loadArticles;
+guardianNewsAPI.loadArticles = async function() {
     await originalLoadArticles.call(this);
     animateNewsCards();
 }; 
