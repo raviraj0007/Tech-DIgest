@@ -1,7 +1,7 @@
 # Tech-Digest React - Modern Tech News Website
 # https://techdigest.me
 
-A responsive, modern tech news website built with React, featuring a clean design with blue/gray palette, smooth animations, and integration with The Guardian API for real-time tech news.
+This responsive tech news site features AI-crafted UI/UX, data representation, and real-time updates from The Guardian via API integration are Manual.
 
 ## 🚀 Features
 
