@@ -1,5 +1,5 @@
 # Tech-Digest React - Modern Tech News Website
-# https://techdigest.me
+# https://techdigest.me IF NOT WORKING TRY SECOND LINK
 # https://tech-digest.netlify.app/
 
 This responsive tech news site features AI-crafted UI/UX, data representation, and real-time updates from The Guardian via API integration are Manual.
